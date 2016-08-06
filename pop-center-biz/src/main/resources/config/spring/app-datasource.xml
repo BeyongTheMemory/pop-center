@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <!--open platform  data source -->
+    <bean id="userDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${uc.driver}"/>
+        <property name="url" value="${uc.url}"/>
+        <property name="username" value="${uc.username}"/>
+        <property name="password" value="${uc.password}"/>
+
+        <!-- Connection Pooling Info -->
+        <property name="maxWait" value="${uc.maxWait}"/>
+        <property name="initialSize" value="${uc.initialSize}"/>
+        <property name="maxActive" value="${uc.maxActive}"/>
+        <property name="minIdle" value="${uc.minIdle}"/>
+        <property name="defaultAutoCommit" value="${uc.defaultAutoCommit}"/>
+        <property name="timeBetweenEvictionRunsMillis"
+                  value="${uc.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${uc.minEvictableIdleTimeMillis}"/>
+        <property name="removeAbandoned" value="${uc.removeAbandoned}"/>
+        <property name="removeAbandonedTimeout" value="${uc.removeAbandonedTimeout}"/>
+        <property name="logAbandoned" value="${uc.logAbandoned}"/>
+        <property name="testWhileIdle" value="${uc.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${uc.testOnBorrow}"/>
+        <property name="testOnReturn" value="${uc.testOnReturn}"/>
+        <property name="validationQuery" value="${uc.validationQuery}"/>
+    </bean>
+
+
+
+
+    <bean id="userSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="userDataSource" />
+        <property name="mapperLocations" value="classpath:config/sqlmap/pop/*.xml" />
+        <property name="configLocation" value="classpath:mybatis/app-mybatis.xml" />
+        <property name="typeAliasesPackage" value="com.pop.uc.entity" />
+    </bean>
+    <!-- mapper interface -->
+  <!--  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory"/>
+        <property name="basePackage" value="com.pop.uc.dao"/>
+    </bean>-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.pop.center.dao" />
+        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
+        <property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory" />
+    </bean>
+
+
+    <!-- transaction support-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="userDataSource" />
+    </bean>
+
+    <tx:advice transaction-manager="transactionManager" id="txAdvice">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"  rollback-for="Throwable"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut expression="execution(* com.pop.center.serviceImpl.*.*(..))
+            )"
+                      id="txMethods" />
+        <aop:advisor pointcut-ref="txMethods" advice-ref="txAdvice" />
+    </aop:config>
+
+
+</beans>
