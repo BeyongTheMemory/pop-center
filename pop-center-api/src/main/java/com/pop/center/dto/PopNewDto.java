@@ -1,13 +1,11 @@
 package com.pop.center.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * Created by xugang on 16/8/6.
+ * Created by xugang on 16/8/9.
  */
-public class PopDto implements Serializable{
-    private long id;
+public class PopNewDto implements Serializable{
     private int type;
     private double longitude;
     private double latitude;
@@ -15,15 +13,10 @@ public class PopDto implements Serializable{
     private long userId;
     private String userName;
     private int model;
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    private String imgUrl;
+    private String message;
+    private String userIntroduction;
+    private String userHeadUrl;
 
     public int getType() {
         return type;
@@ -79,5 +72,37 @@ public class PopDto implements Serializable{
 
     public void setModel(int model) {
         this.model = model;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getUserIntroduction() {
+        return userIntroduction;
+    }
+
+    public void setUserIntroduction(String userIntroduction) {
+        this.userIntroduction = userIntroduction;
+    }
+
+    public String getUserHeadUrl() {
+        return userHeadUrl;
+    }
+
+    public void setUserHeadUrl(String userHeadUrl) {
+        this.userHeadUrl = userHeadUrl;
     }
 }

@@ -18,6 +18,17 @@
 		)
 	</insert>
 
+	<select id="getByLatLon" parameterType="java.util.Map" resultType="com.pop.center.entity.PopEntity">
+		SELECT <include refid="Base_Column_List"/>
+		FROM pop_basic
+		WHERE
+		<![CDATA[
+		longitude < #{lonMax} AND longitude > #{lonMin} AND latitude < #{latMax} AND latitude > #{latMin} AND state = 1
+		]]>
+	</select>
+
+
+
 
 
 

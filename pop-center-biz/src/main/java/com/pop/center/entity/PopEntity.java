@@ -8,9 +8,9 @@ import java.util.Date;
 public class PopEntity {
     private long id;
     private int type;
-    private long longitude;
-    private long latitude;
-    private long altitude;
+    private double longitude;
+    private double latitude;
+    private double altitude;
     private long userId;
     private String userName;
     private int model;
@@ -33,27 +33,27 @@ public class PopEntity {
         this.type = type;
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public long getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
 
-    public void setAltitude(long altitude) {
+    public void setAltitude(double altitude) {
         this.altitude = altitude;
     }
 
@@ -63,6 +63,14 @@ public class PopEntity {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getModel() {
@@ -87,13 +95,5 @@ public class PopEntity {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 }
