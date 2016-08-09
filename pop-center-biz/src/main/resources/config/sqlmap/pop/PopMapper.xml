@@ -3,18 +3,18 @@
 <mapper namespace="com.pop.center.dao.PopDAO">
 
 	<sql id="Base_Column_List">
-		id,type,longitude,latitude,altitude,user_id,user_name,model,update_time,add_time
+		id,type,longitude,latitude,altitude,user_id,user_name,model,update_time,add_time,is_showy
 	</sql>
 
 
 	<insert id="save" parameterType="com.pop.center.entity.PopEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO pop_basic
 		(
-		type,longitude,latitude,altitude,user_id,user_name,model
+		type,longitude,latitude,altitude,user_id,user_name,model,is_showy
 		)
 		VALUES
 		(
-        #{type},#{longitude},#{latitude},#{altitude},#{userId},#{userName},#{model}
+        #{type},#{longitude},#{latitude},#{altitude},#{userId},#{userName},#{model},#{isShowy}
 		)
 	</insert>
 

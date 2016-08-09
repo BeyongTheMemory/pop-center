@@ -15,6 +15,7 @@ public class PopDto implements Serializable{
     private long userId;
     private String userName;
     private int model;
+    private int isShowy;
 
 
     public long getId() {
@@ -79,5 +80,13 @@ public class PopDto implements Serializable{
 
     public void setModel(int model) {
         this.model = model;
+    }
+
+    public int getIsShowy() {
+        return isShowy;
+    }
+
+    public void setIsShowy(int isShowy) {
+        this.isShowy = isShowy;
     }
 }

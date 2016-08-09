@@ -14,6 +14,7 @@ public class PopEntity {
     private long userId;
     private String userName;
     private int model;
+    private int isShowy;
     private Date updateTime;
     private Date addTime;
 
@@ -95,5 +96,13 @@ public class PopEntity {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public int getIsShowy() {
+        return isShowy;
+    }
+
+    public void setIsShowy(int isShowy) {
+        this.isShowy = isShowy;
     }
 }

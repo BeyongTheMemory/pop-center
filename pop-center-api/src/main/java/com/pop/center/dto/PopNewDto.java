@@ -13,6 +13,7 @@ public class PopNewDto implements Serializable{
     private long userId;
     private String userName;
     private int model;
+    private int isShowy;
     private String imgUrl;
     private String message;
     private String userIntroduction;
@@ -104,5 +105,13 @@ public class PopNewDto implements Serializable{
 
     public void setUserHeadUrl(String userHeadUrl) {
         this.userHeadUrl = userHeadUrl;
+    }
+
+    public int getIsShowy() {
+        return isShowy;
+    }
+
+    public void setIsShowy(int isShowy) {
+        this.isShowy = isShowy;
     }
 }
