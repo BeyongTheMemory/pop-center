@@ -17,6 +17,7 @@ public class PopEntity {
     private int isShowy;
     private Date updateTime;
     private Date addTime;
+    private String geoHash;
 
     public long getId() {
         return id;
@@ -104,5 +105,13 @@ public class PopEntity {
 
     public void setIsShowy(int isShowy) {
         this.isShowy = isShowy;
+    }
+
+    public String getGeoHash() {
+        return geoHash;
+    }
+
+    public void setGeoHash(String geoHash) {
+        this.geoHash = geoHash;
     }
 }

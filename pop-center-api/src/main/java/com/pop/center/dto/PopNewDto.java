@@ -114,4 +114,5 @@ public class PopNewDto implements Serializable{
     public void setIsShowy(int isShowy) {
         this.isShowy = isShowy;
     }
+
 }

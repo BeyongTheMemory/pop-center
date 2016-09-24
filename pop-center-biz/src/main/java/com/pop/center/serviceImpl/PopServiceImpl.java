@@ -1,5 +1,8 @@
 package com.pop.center.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.pop.cache.RedisOperate;
 import com.pop.center.dao.PopDAO;
 import com.pop.center.dao.PopInfoDAO;
 import com.pop.center.dao.PopMessageDAO;
@@ -7,19 +10,24 @@ import com.pop.center.dto.PopDto;
 import com.pop.center.dto.PopInfoDto;
 import com.pop.center.dto.PopMessageDto;
 import com.pop.center.dto.PopNewDto;
+import com.pop.center.entity.Point;
 import com.pop.center.entity.PopEntity;
 import com.pop.center.entity.PopInfoEntity;
 import com.pop.center.entity.PopMessageEntity;
+import com.pop.center.enums.RedisKey;
 import com.pop.center.service.PopService;
 import com.pop.center.util.DistanceUtil;
+import com.pop.center.util.Geohash;
 import com.pop.mybatis.entity.Page;
 import com.pop.mybatis.entity.Pageable;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,16 +42,27 @@ public class PopServiceImpl implements PopService {
     private PopInfoDAO popInfoDAO;
     @Autowired
     private PopMessageDAO popMessageDAO;
+    @Autowired
+    private RedisOperate redis;
 
+    /*获取的geohash多少位，位数越长，精度越准*/
+    private static final int geoHashLenth = 6;
 
     public void save(PopNewDto popNewDto) {
         PopEntity popEntity = new PopEntity();
         BeanUtils.copyProperties(popNewDto, popEntity);
+		/*获取geohash*/
+        String geohash = Geohash.encode(popNewDto.getLatitude(), popNewDto.getLongitude()).substring(0, geoHashLenth);
+        popEntity.setGeoHash(geohash);
         popDAO.save(popEntity);
         PopInfoEntity popInfoEntity = new PopInfoEntity();
         BeanUtils.copyProperties(popNewDto, popInfoEntity);
         popInfoEntity.setPopId(popEntity.getId());
         popInfoDAO.save(popInfoEntity);
+        //刷新缓存
+        PopDto popDto = new PopDto();
+        BeanUtils.copyProperties(popEntity,popDto);
+        addPopInCache(geohash,popDto);
     }
 
     public Page<PopDto> getPop(double lat, double lon, int range, Pageable pageable) {
@@ -60,6 +79,38 @@ public class PopServiceImpl implements PopService {
         }
         Page<PopDto> popDtoPage = new Page<PopDto>(popDtoList, popEntityPage.getPageable(), popEntityPage.getTotal());
         return popDtoPage;
+    }
+
+    /**
+     * 根据经纬度获取pop
+     * @param lat
+     * @param lon
+     * @return
+     */
+    public List<PopDto> getPop(double lat,double lon){
+        List<PopDto> popDtos = new ArrayList<>();
+        String geoHash = Geohash.encode(lat,lon);
+        //搜索所有的框
+        String[] nearGeoHashs = Geohash.getGeoHashExpand(geoHash);
+        for(int i = 0;i<9;i++){//遍历所有框
+            String nearGeoHash = nearGeoHashs[i];
+            String popListString = redis.getStringByKey(String.format(RedisKey.popList, nearGeoHash));
+            Point point = new Point(lat,lon);
+            if(!StringUtils.isEmpty(popListString)){
+                popDtos.addAll(JSON.parseArray(popListString,PopDto.class));//同一个框里距离在0.6km以内
+                //排序
+                Collections.sort(popDtos,point);
+                if (popDtos.size() > 10){
+                    return popDtos.subList(0,9);
+                }
+                if (popDtos.size() > 5){
+                    return popDtos;
+                }
+            }
+        }
+        //todo:搜索失败查询数据库
+
+        return popDtos;
     }
 
     public PopInfoDto getPopInfo(long popId) {
@@ -90,6 +141,29 @@ public class PopServiceImpl implements PopService {
         }
         Page<PopMessageDto> popMessageDtoPage = new Page<>(popMessageDtoList, popMessageEntityPage.getPageable(), popMessageEntityPage.getTotal());
         return popMessageDtoPage;
+    }
+
+
+    public void addPopInCache(String geoHash,PopDto popDto){
+        String popListString = redis.getStringByKey(String.format(RedisKey.popList,geoHash));
+        if(StringUtils.isEmpty(popListString)){
+            //先查出来
+            List<PopDto> popDtos = new ArrayList<>();
+            List<PopEntity> popEntities = popDAO.getByGeoHash(geoHash);
+            if(!CollectionUtils.isEmpty(popEntities)){
+                for (PopEntity popEntity:popEntities){
+                    PopDto popDtoTemp = new PopDto();
+                    BeanUtils.copyProperties(popEntity,popDtoTemp);
+                    popDtos.add(popDtoTemp);
+                }
+            }
+            popDtos.add(popDto);
+            redis.set(String.format(RedisKey.popList,geoHash), JSONObject.toJSONString(popDtos),RedisKey.POPLIST_TTL);
+        }else {
+            List<PopDto> popDtos = JSON.parseArray(popListString, PopDto.class);
+            popDtos.add(popDto);
+            redis.set(String.format(RedisKey.popList,geoHash), JSONObject.toJSONString(popDtos),RedisKey.POPLIST_TTL);
+        }
     }
 
 }

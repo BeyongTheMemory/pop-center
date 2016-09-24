@@ -3,18 +3,18 @@
 <mapper namespace="com.pop.center.dao.PopDAO">
 
 	<sql id="Base_Column_List">
-		id,type,longitude,latitude,altitude,user_id,user_name,model,update_time,add_time,is_showy
+		id,type,longitude,latitude,altitude,user_id,user_name,model,update_time,add_time,is_showy,geo_hash
 	</sql>
 
 
 	<insert id="save" parameterType="com.pop.center.entity.PopEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO pop_basic
 		(
-		type,longitude,latitude,altitude,user_id,user_name,model,is_showy
+		type,longitude,latitude,altitude,user_id,user_name,model,is_showy,geo_hash
 		)
 		VALUES
 		(
-        #{type},#{longitude},#{latitude},#{altitude},#{userId},#{userName},#{model},#{isShowy}
+        #{type},#{longitude},#{latitude},#{altitude},#{userId},#{userName},#{model},#{isShowy},#{geoHash}
 		)
 	</insert>
 
@@ -25,6 +25,12 @@
 		<![CDATA[
 		longitude < #{lonMax} AND longitude > #{lonMin} AND latitude < #{latMax} AND latitude > #{latMin} AND state = 1
 		]]>
+	</select>
+
+	<select id="getByGeoHash" parameterType="java.util.Map" resultType="com.pop.center.entity.PopEntity">
+		SELECT <include refid="Base_Column_List"/>
+		FROM pop_basic
+		WHERE geo_hash = #{geoHash}
 	</select>
 
 
