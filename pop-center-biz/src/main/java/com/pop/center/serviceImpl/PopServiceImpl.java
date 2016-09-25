@@ -29,6 +29,7 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xugang on 16/8/6.
@@ -59,10 +60,14 @@ public class PopServiceImpl implements PopService {
         BeanUtils.copyProperties(popNewDto, popInfoEntity);
         popInfoEntity.setPopId(popEntity.getId());
         popInfoDAO.save(popInfoEntity);
-        //刷新缓存
+        //todo:异步刷新缓存
         PopDto popDto = new PopDto();
         BeanUtils.copyProperties(popEntity,popDto);
         addPopInCache(geohash,popDto);
+        //todo:漂浮泡泡异步刷新缓存,漂浮泡泡只缓存10个
+        if(popDto.getType() == 1){
+
+        }
     }
 
     public Page<PopDto> getPop(double lat, double lon, int range, Pageable pageable) {
@@ -91,9 +96,9 @@ public class PopServiceImpl implements PopService {
         List<PopDto> popDtos = new ArrayList<>();
         String geoHash = Geohash.encode(lat,lon);
         //搜索所有的框
-        String[] nearGeoHashs = Geohash.getGeoHashExpand(geoHash);
+        List<String> nearGeoHashs = Geohash.getGeoHashExpand(geoHash);
         for(int i = 0;i<9;i++){//遍历所有框
-            String nearGeoHash = nearGeoHashs[i];
+            String nearGeoHash = nearGeoHashs.get(i);
             String popListString = redis.getStringByKey(String.format(RedisKey.popList, nearGeoHash));
             Point point = new Point(lat,lon);
             if(!StringUtils.isEmpty(popListString)){
@@ -108,7 +113,25 @@ public class PopServiceImpl implements PopService {
                 }
             }
         }
-        //todo:搜索失败查询数据库
+        //搜索缓存不足5个则查询数据库
+        popDtos.clear();
+        List<PopEntity> popEntityList = popDAO.getByGeoHashs(nearGeoHashs);
+        if(!CollectionUtils.isEmpty(popEntityList)) {
+           for (PopEntity popEntity : popEntityList) {
+               PopDto popDto = new PopDto();
+               BeanUtils.copyProperties(popEntity,popDto);
+               popDtos.add(popDto);
+           }
+            //异步更新缓存
+             if(popDtos.size() > 10){
+                 popDtos = popDtos.subList(0,9);
+             }
+            return popDtos;
+       }
+       else{
+            //查询失败从redis查询漂浮泡泡
+            //从数据库查询漂浮泡泡
+        }
 
         return popDtos;
     }

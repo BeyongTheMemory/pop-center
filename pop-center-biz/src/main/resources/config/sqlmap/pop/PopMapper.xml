@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pop.center.dao.PopDAO">
 
-	<sql id="Base_Column_List">
+    <sql id="Base_Column_List">
 		id,type,longitude,latitude,altitude,user_id,user_name,model,update_time,add_time,is_showy,geo_hash
 	</sql>
 
 
-	<insert id="save" parameterType="com.pop.center.entity.PopEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.pop.center.entity.PopEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO pop_basic
 		(
 		type,longitude,latitude,altitude,user_id,user_name,model,is_showy,geo_hash
@@ -18,25 +18,33 @@
 		)
 	</insert>
 
-	<select id="getByLatLon" parameterType="java.util.Map" resultType="com.pop.center.entity.PopEntity">
-		SELECT <include refid="Base_Column_List"/>
-		FROM pop_basic
-		WHERE
-		<![CDATA[
+    <select id="getByLatLon" parameterType="java.util.Map" resultType="com.pop.center.entity.PopEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pop_basic
+        WHERE
+        <![CDATA[
 		longitude < #{lonMax} AND longitude > #{lonMin} AND latitude < #{latMax} AND latitude > #{latMin} AND state = 1
 		]]>
-	</select>
+    </select>
 
-	<select id="getByGeoHash" parameterType="java.util.Map" resultType="com.pop.center.entity.PopEntity">
-		SELECT <include refid="Base_Column_List"/>
-		FROM pop_basic
-		WHERE geo_hash = #{geoHash}
-	</select>
-
-
-
+    <select id="getByGeoHash" parameterType="java.util.Map" resultType="com.pop.center.entity.PopEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pop_basic
+        WHERE geo_hash = #{geoHash}
+    </select>
 
 
+    <select id="getByGeoHashs" parameterType="java.util.List" resultType="com.pop.center.entity.PopEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pop_basic
+        WHERE geo_hash IN
+        <foreach collection="geoHashs" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+    </select>
 
 
 </mapper>

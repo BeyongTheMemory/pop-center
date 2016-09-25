@@ -1,9 +1,9 @@
 package com.pop.center.util;
 
+import org.apache.log4j.Logger;
+
 import java.text.DecimalFormat;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 来自：http://www.sunjs.com 老孙个人博客
@@ -12,6 +12,7 @@ import java.util.Map;
  * 2013-10-25 14:15:16
  */
 public class Geohash {
+	private static final Logger logger = Logger.getLogger(Geohash.class);
 	private static int numbits = 6 * 5;
 	final static char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
 			'9', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p',
@@ -197,36 +198,29 @@ public class Geohash {
 	 * @param geohash
 	 * @return
 	 */
-	public static String[] getGeoHashExpand(String geohash){
+	public static List<String> getGeoHashExpand(String geohash){
 		try {
-			System.out.println("=========	"+geohash);
-			
+			List<String> expand = new ArrayList<>();
+			expand.add(geohash);
 			String geohashTop = calculateAdjacent(geohash, "top");
-			System.out.println("=========	"+geohashTop);
-			
+			expand.add(geohashTop);
 			String geohashBottom = calculateAdjacent(geohash, "bottom");
-			System.out.println("=========	"+geohashBottom);
-			
+			expand.add(geohashBottom);
 			String geohashRight = calculateAdjacent(geohash, "right");
-			System.out.println("=========	"+geohashRight);
-			
+			expand.add(geohashRight);
 			String geohashLeft = calculateAdjacent(geohash, "left");
-			System.out.println("=========	"+geohashLeft);
-			
+			expand.add(geohashLeft);
 			String geohashTopLeft = calculateAdjacent(geohashLeft, "top");
-			System.out.println("=========	"+geohashTopLeft);
-			
+			expand.add(geohashTopLeft);
 			String geohashTopRight = calculateAdjacent(geohashRight, "top");
-			System.out.println("=========	"+geohashTopRight);
-			
+			expand.add(geohashTopRight);
 			String geohashBottomRight = calculateAdjacent(geohashRight, "bottom");
-			System.out.println("=========	"+geohashBottomRight);
-			
+			expand.add(geohashBottomRight);
 			String geohashBottomLeft = calculateAdjacent(geohashLeft, "bottom");
-			System.out.println("=========	"+geohashBottomLeft);
-			String[] expand = {geohash, geohashTop, geohashBottom, geohashRight, geohashLeft, geohashTopLeft, geohashTopRight, geohashBottomRight, geohashBottomLeft};
+			expand.add(geohashBottomLeft);
 			return expand;
 		} catch (Exception e) {
+			logger.error("获取编码错误",e);
 			return null;
 		}
 	}
@@ -334,7 +328,7 @@ public class Geohash {
 		String geohash = encode(lat, lon).substring(0, geohashLen);
 		
 		/*获取所有的矩形geohash， 一共是九个 ，包含中心点,打印顺序请参考图2*/
-		String[] result = getGeoHashExpand(geohash);
+		//String[] result = getGeoHashExpand(geohash);
 		
 		
 	}
