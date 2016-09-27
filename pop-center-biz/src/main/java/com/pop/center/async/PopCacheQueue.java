@@ -6,31 +6,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.concurrent.LinkedTransferQueue;
 
 /**
- * Created by xugang on 16/9/25.
+ * Created by xugang on 16/9/26.
  */
 @Component
-public class PopListCacheQueue {
-    private LinkedTransferQueue<List<PopDto>> dtos;
-    private static final Logger logger = LoggerFactory.getLogger(PopListCacheQueue.class);
-
+public class PopCacheQueue {
+    private LinkedTransferQueue<PopDto> dtos;
+    private static final Logger logger = LoggerFactory.getLogger(PopCacheQueue.class);
     @PostConstruct
-    public void init() {
+    public void init(){
         this.dtos = new LinkedTransferQueue<>();
     }
 
-    public void put(List<PopDto> popDtos) {
-        this.dtos.put(popDtos);
+    public void put(PopDto popCacheDto){
+        this.dtos.put(popCacheDto);
     }
 
-    public List<PopDto> take() {
+    public PopDto take(){
         try {
             return this.dtos.take();
         } catch (InterruptedException e) {
-            logger.error("popListCacheQueue take erro", e);
+            logger.error("PopCacheDto take erro",e);
         }
         return null;
     }

@@ -46,5 +46,14 @@
         </foreach>
     </select>
 
+    <select id="getFloatPop" resultType="com.pop.center.entity.PopEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pop_basic
+        WHERE is_showy = 1
+        ORDER BY id DESC
+        limit 10
+    </select>
+
 
 </mapper>

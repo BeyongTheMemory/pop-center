@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by xugang on 16/8/9.
+ * pop留言
  */
 public class PopMessageDto implements Serializable{
     private long id;

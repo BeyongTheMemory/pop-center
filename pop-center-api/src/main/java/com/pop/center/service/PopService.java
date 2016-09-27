@@ -14,7 +14,8 @@ import java.util.List;
  */
 public interface PopService {
     public void save(PopNewDto popNewDto);
-    public Page<PopDto> getPop(double lat,double lon,int range,Pageable pageable);
+    //public Page<PopDto> getPop(double lat,double lon,int range,Pageable pageable);
+    public List<PopDto> getPop(double lat, double lon);
     public PopInfoDto getPopInfo(long popId);
     public void addMessage(PopMessageDto popMessageDto);
     public Page<PopMessageDto> getMessage(long popId,Pageable pageable);
