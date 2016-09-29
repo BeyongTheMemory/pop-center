@@ -19,7 +19,6 @@ import com.pop.center.entity.PopInfoEntity;
 import com.pop.center.entity.PopMessageEntity;
 import com.pop.center.enums.RedisKey;
 import com.pop.center.service.PopService;
-import com.pop.center.util.DistanceUtil;
 import com.pop.center.util.Geohash;
 import com.pop.mybatis.entity.Page;
 import com.pop.mybatis.entity.Pageable;
