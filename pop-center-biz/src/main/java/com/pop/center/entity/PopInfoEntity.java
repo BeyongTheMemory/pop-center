@@ -15,6 +15,7 @@ public class PopInfoEntity {
     private String userHeadUrl;
     private Date updateTime;
     private Date createTime;
+    public int onlyOnce;
 
     public long getPopId() {
         return popId;
@@ -86,5 +87,13 @@ public class PopInfoEntity {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public int getOnlyOnce() {
+        return onlyOnce;
+    }
+
+    public void setOnlyOnce(int onlyOnce) {
+        this.onlyOnce = onlyOnce;
     }
 }

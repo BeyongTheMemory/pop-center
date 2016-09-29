@@ -184,8 +184,12 @@ public class PopServiceImpl implements PopService {
             PopInfoDto popInfoDto = new PopInfoDto();
             if (popInfoEntity != null) {
                 BeanUtils.copyProperties(popInfoEntity, popInfoDto);
-                //更新缓存
-                popInfoCacheQueue.put(popInfoDto);
+                if(popInfoEntity.getOnlyOnce() == 1){//阅后即焚
+                    popDAO.deleteById(popId);
+                }else {
+                    //更新缓存
+                    popInfoCacheQueue.put(popInfoDto);
+                }
             }
             return popInfoDto;
         }

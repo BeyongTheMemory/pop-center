@@ -114,4 +114,6 @@ public class PopEntity {
     public void setGeoHash(String geoHash) {
         this.geoHash = geoHash;
     }
+
+
 }

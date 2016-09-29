@@ -18,6 +18,12 @@
 		)
 	</insert>
 
+    <update id="deleteById" parameterType="java.util.Map">
+        UPDATE pop_basic
+        set status = 0
+        where id = #{id}
+    </update>
+
     <select id="getByLatLon" parameterType="java.util.Map" resultType="com.pop.center.entity.PopEntity">
         SELECT
         <include refid="Base_Column_List"/>
@@ -32,7 +38,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM pop_basic
-        WHERE geo_hash = #{geoHash}
+        WHERE geo_hash = #{geoHash} AND  state =1
     </select>
 
 
@@ -44,16 +50,19 @@
         <foreach collection="geoHashs" item="item" index="index" separator=",">
             #{item}
         </foreach>
+        AND  state =1
     </select>
 
     <select id="getFloatPop" resultType="com.pop.center.entity.PopEntity">
         SELECT
         <include refid="Base_Column_List"/>
         FROM pop_basic
-        WHERE is_showy = 1
+        WHERE is_showy = 1 AND  state =1
         ORDER BY id DESC
         limit 10
     </select>
+
+
 
 
 </mapper>

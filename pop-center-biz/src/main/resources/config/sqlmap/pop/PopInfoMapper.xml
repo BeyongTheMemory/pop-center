@@ -3,18 +3,18 @@
 <mapper namespace="com.pop.center.dao.PopInfoDAO">
 
 	<sql id="Base_Column_List">
-		id,pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,update_time,create_time
+		id,pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,update_time,create_time,only_once
 	</sql>
 
 
 	<insert id="save" parameterType="com.pop.center.entity.PopInfoEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO pop_infore
 		(
-		pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url
+		pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,only_once
 		)
 		VALUES
 		(
-        #{popId},#{imgUrl},#{message},#{userName},#{userId},#{userIntroduction},#{userHeadUrl}
+        #{popId},#{imgUrl},#{message},#{userName},#{userId},#{userIntroduction},#{userHeadUrl},#{onlyOnce}
 		)
 	</insert>
 

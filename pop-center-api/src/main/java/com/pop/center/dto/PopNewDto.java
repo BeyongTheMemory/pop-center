@@ -18,6 +18,8 @@ public class PopNewDto implements Serializable{
     private String message;
     private String userIntroduction;
     private String userHeadUrl;
+    public int onlyOnce;
+
 
     public int getType() {
         return type;
@@ -115,4 +117,11 @@ public class PopNewDto implements Serializable{
         this.isShowy = isShowy;
     }
 
+    public int getOnlyOnce() {
+        return onlyOnce;
+    }
+
+    public void setOnlyOnce(int onlyOnce) {
+        this.onlyOnce = onlyOnce;
+    }
 }

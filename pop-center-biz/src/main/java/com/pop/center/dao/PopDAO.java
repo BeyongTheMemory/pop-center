@@ -18,4 +18,5 @@ public interface PopDAO {
     public List<PopEntity> getByGeoHash(@Param("geoHash")String geoHash);
     public List<PopEntity> getByGeoHashs(@Param("geoHashs")List<String> geoHashs);
     public List<PopEntity> getFloatPop();
+    public void deleteById(@Param("id")long id);
 }
