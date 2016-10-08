@@ -19,6 +19,8 @@ public class PopNewDto implements Serializable{
     private String userIntroduction;
     private String userHeadUrl;
     public int onlyOnce;
+    private String introduction;
+    private int sex;
 
 
     public int getType() {
@@ -123,5 +125,21 @@ public class PopNewDto implements Serializable{
 
     public void setOnlyOnce(int onlyOnce) {
         this.onlyOnce = onlyOnce;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }
