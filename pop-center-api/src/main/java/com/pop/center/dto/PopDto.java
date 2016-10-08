@@ -17,6 +17,8 @@ public class PopDto implements Serializable{
     private int model;
     private int isShowy;
     private String geoHash;
+    private String introduction;
+    private int sex;
 
 
     public long getId() {
@@ -99,4 +101,19 @@ public class PopDto implements Serializable{
         this.geoHash = geoHash;
     }
 
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
 }

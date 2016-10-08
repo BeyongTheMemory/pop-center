@@ -3,18 +3,18 @@
 <mapper namespace="com.pop.center.dao.PopDAO">
 
     <sql id="Base_Column_List">
-		id,type,longitude,latitude,altitude,user_id,user_name,model,update_time,add_time,is_showy,geo_hash
+		id,type,longitude,latitude,altitude,user_id,user_name,model,update_time,create_time,is_showy,geo_hash,introduction,sex
 	</sql>
 
 
     <insert id="save" parameterType="com.pop.center.entity.PopEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO pop_basic
 		(
-		type,longitude,latitude,altitude,user_id,user_name,model,is_showy,geo_hash
+		type,longitude,latitude,altitude,user_id,user_name,model,is_showy,geo_hash,introduction,sex
 		)
 		VALUES
 		(
-        #{type},#{longitude},#{latitude},#{altitude},#{userId},#{userName},#{model},#{isShowy},#{geoHash}
+        #{type},#{longitude},#{latitude},#{altitude},#{userId},#{userName},#{model},#{isShowy},#{geoHash},#{introduction},#{sex}
 		)
 	</insert>
 
@@ -46,11 +46,10 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM pop_basic
-        WHERE geo_hash IN
-        <foreach collection="geoHashs" item="item" index="index" separator=",">
+        WHERE state =1 AND geo_hash IN
+        <foreach collection="geoHashs" item="item" index="index" separator="," open="(" close=")">
             #{item}
         </foreach>
-        AND  state =1
     </select>
 
     <select id="getFloatPop" resultType="com.pop.center.entity.PopEntity">

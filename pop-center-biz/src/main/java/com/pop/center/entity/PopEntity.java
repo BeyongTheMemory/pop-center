@@ -16,8 +16,11 @@ public class PopEntity {
     private int model;
     private int isShowy;
     private Date updateTime;
-    private Date addTime;
+    private Date createTime;
     private String geoHash;
+    private String introduction;
+    private int sex;
+
 
     public long getId() {
         return id;
@@ -91,12 +94,12 @@ public class PopEntity {
         this.updateTime = updateTime;
     }
 
-    public Date getAddTime() {
-        return addTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public int getIsShowy() {
@@ -115,5 +118,19 @@ public class PopEntity {
         this.geoHash = geoHash;
     }
 
+    public String getIntroduction() {
+        return introduction;
+    }
 
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
 }

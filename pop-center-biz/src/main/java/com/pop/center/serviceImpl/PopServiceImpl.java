@@ -105,7 +105,7 @@ public class PopServiceImpl implements PopService {
     @Override
     public List<PopDto> getPop(double lat, double lon) {
         List<PopDto> popDtos = new ArrayList<>();
-        String geoHash = Geohash.encode(lat, lon);
+        String geoHash = Geohash.encode(lat, lon).substring(0, geoHashLenth);
         //搜索所有的框
         List<String> nearGeoHashs = Geohash.getGeoHashExpand(geoHash);
         Point point = new Point(lat, lon);
@@ -165,7 +165,9 @@ public class PopServiceImpl implements PopService {
                      * 漂浮泡泡缓存不存在时放入任一个漂浮泡泡就能刷新最新10个到缓存中
                      * @see PopFloatCacheThread
                      */
-                    popFloatCacheQueue.put(popDtos.get(popDtos.size() - 1));
+                    if(!CollectionUtils.isEmpty(popDtos)) {
+                        popFloatCacheQueue.put(popDtos.get(popDtos.size() - 1));
+                    }
                 }
 
             }

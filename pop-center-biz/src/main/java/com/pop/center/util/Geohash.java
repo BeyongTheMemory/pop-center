@@ -1,7 +1,9 @@
 package com.pop.center.util;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -11,6 +13,7 @@ import java.util.*;
  * @author Kevon.sun
  * 2013-10-25 14:15:16
  */
+@Component
 public class Geohash {
 	private static final Logger logger = Logger.getLogger(Geohash.class);
 	private static int numbits = 6 * 5;
@@ -167,10 +170,10 @@ public class Geohash {
 	}
 	
 	/***********************获取九个的矩形编码****************************************/
-	
+
 	public static Map<String, String> BORDERS = new HashMap<String, String>();
 	public static Map<String, String> NEIGHBORS = new HashMap<String, String>();
-	
+	@PostConstruct
 	public static void setMap() {
 		NEIGHBORS.put("right:even", "bc01fg45238967deuvhjyznpkmstqrwx");
 		NEIGHBORS.put("left:even", "238967debc01fg45kmstqrwxuvhjyznp");
@@ -236,6 +239,7 @@ public class Geohash {
 		int a = srcHash.length()%2;
 		String type = (a>0)?"odd":"even";
 		String base = srcHash.substring(0,srcHash.length()-1);
+		String s = BORDERS.get(dir+":"+type);
 		if (BORDERS.get(dir+":"+type).indexOf(lastChr)!=-1){
 			base = calculateAdjacent(base, dir);
 		}

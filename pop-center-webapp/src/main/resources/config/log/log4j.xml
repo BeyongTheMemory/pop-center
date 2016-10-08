@@ -11,7 +11,7 @@
     </appender>
 
     <appender name="rootAppender" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/data/applogs/uc-webapp/logs/app.log" />
+        <param name="File" value="/data/applogs/pop-center/logs/app.log" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="[log-web]%d %-5p %l [%c] %m%n" />
         </layout>
