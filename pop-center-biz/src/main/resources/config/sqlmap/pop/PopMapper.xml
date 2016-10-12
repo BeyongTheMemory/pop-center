@@ -24,6 +24,19 @@
         where id = #{id}
     </update>
 
+    <update id="addLookNum" parameterType="java.util.Map">
+        UPDATE pop_basic
+        set look_num = look_num + 1
+        where id = #{id}
+    </update>
+
+    <select id="getById" parameterType="java.util.Map" resultType="com.pop.center.entity.pop.PopEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM pop_basic
+        WHERE id = #{id}
+    </select>
+
     <select id="getByLatLon" parameterType="java.util.Map" resultType="com.pop.center.entity.pop.PopEntity">
         SELECT
         <include refid="Base_Column_List"/>

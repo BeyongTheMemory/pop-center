@@ -17,6 +17,7 @@ public class PopInfoEntity {
     private Date createTime;
     private int onlyOnce;
     private int sex;
+    private int lookNum;
 
     public long getPopId() {
         return popId;
@@ -104,5 +105,13 @@ public class PopInfoEntity {
 
     public void setSex(int sex) {
         this.sex = sex;
+    }
+
+    public int getLookNum() {
+        return lookNum;
+    }
+
+    public void setLookNum(int lookNum) {
+        this.lookNum = lookNum;
     }
 }

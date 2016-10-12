@@ -18,6 +18,7 @@ public class PopInfoDto implements Serializable{
     private Date createTime;
     private int sex;
     private int onlyOnce;
+    private int lookNum;
 
     public long getPopId() {
         return popId;
@@ -105,5 +106,13 @@ public class PopInfoDto implements Serializable{
 
     public void setOnlyOnce(int onlyOnce) {
         this.onlyOnce = onlyOnce;
+    }
+
+    public int getLookNum() {
+        return lookNum;
+    }
+
+    public void setLookNum(int lookNum) {
+        this.lookNum = lookNum;
     }
 }

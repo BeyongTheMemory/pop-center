@@ -13,10 +13,19 @@ import java.util.List;
  */
 @Repository
 public interface PopDAO {
-    public void save(PopEntity popEntity);
-    public Page<PopEntity> getByLatLon(@Param("latMin")double latMin,@Param("latMax")double latMax,@Param("lonMin")double lonMin,@Param("lonMax")double lonMax,Pageable pageable);
-    public List<PopEntity> getByGeoHash(@Param("geoHash")String geoHash);
-    public List<PopEntity> getByGeoHashs(@Param("geoHashs")List<String> geoHashs);
-    public List<PopEntity> getFloatPop();
-    public void deleteById(@Param("id")long id);
+    void save(PopEntity popEntity);
+
+    Page<PopEntity> getByLatLon(@Param("latMin") double latMin, @Param("latMax") double latMax, @Param("lonMin") double lonMin, @Param("lonMax") double lonMax, Pageable pageable);
+
+    List<PopEntity> getByGeoHash(@Param("geoHash") String geoHash);
+
+    List<PopEntity> getByGeoHashs(@Param("geoHashs") List<String> geoHashs);
+
+    List<PopEntity> getFloatPop();
+
+    void deleteById(@Param("id") long id);
+
+    PopEntity getById(@Param("id") long id);
+
+    void addLookNum(@Param("id") long id);
 }

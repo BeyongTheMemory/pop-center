@@ -2,10 +2,7 @@ package com.pop.center.serviceImpl.pop;
 
 import com.alibaba.fastjson.JSON;
 import com.pop.cache.RedisOperate;
-import com.pop.center.async.PopCacheQueue;
-import com.pop.center.async.PopFloatCacheQueue;
-import com.pop.center.async.PopInfoCacheQueue;
-import com.pop.center.async.PopListCacheQueue;
+import com.pop.center.async.*;
 import com.pop.center.dao.pop.PopDAO;
 import com.pop.center.dao.pop.PopInfoDAO;
 import com.pop.center.dao.pop.PopMessageDAO;
@@ -54,6 +51,10 @@ public class PopServiceImpl implements PopService {
     private PopListCacheQueue popListCacheQueue;
     @Autowired
     private PopInfoCacheQueue popInfoCacheQueue;
+    @Autowired
+    private PopDeleteQueue popDeleteQueue;
+    @Autowired
+    private PopAddLookNumQueue popAddLookNumQueue;
 
     /*获取的geohash多少位，位数越长，精度越准*/
     private static final int geoHashLenth = 6;
@@ -179,11 +180,12 @@ public class PopServiceImpl implements PopService {
 
     public PopInfoDto getPopInfo(long popId) {
         String popInfoDtoString = redis.getStringByKey(String.format(RedisKey.popInfo,popId));
+        PopInfoDto popInfoDto;
         if(!StringUtils.isEmpty(popInfoDtoString)){
-            return JSON.parseObject(popInfoDtoString,PopInfoDto.class);
+            popInfoDto = JSON.parseObject(popInfoDtoString,PopInfoDto.class);
         }else {
             PopInfoEntity popInfoEntity = popInfoDAO.getByPopId(popId);
-            PopInfoDto popInfoDto = new PopInfoDto();
+            popInfoDto = new PopInfoDto();
             if (popInfoEntity != null) {
                 BeanUtils.copyProperties(popInfoEntity, popInfoDto);
                 if(popInfoEntity.getOnlyOnce() == 1){//阅后即焚
@@ -193,8 +195,14 @@ public class PopServiceImpl implements PopService {
                     popInfoCacheQueue.put(popInfoDto);
                 }
             }
-            return popInfoDto;
         }
+        if(popInfoDto.getOnlyOnce() == 1){
+            //异步删除
+            popDeleteQueue.put(popId);
+        }
+        //异步增加浏览量
+        popAddLookNumQueue.put(popId);
+        return popInfoDto;
     }
 
     public void addMessage(PopMessageDto popMessageDto) {
