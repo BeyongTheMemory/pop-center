@@ -2,8 +2,7 @@ package com.pop.center.async;
 
 import com.alibaba.fastjson.JSONObject;
 import com.pop.cache.RedisOperate;
-import com.pop.center.dto.PopDto;
-import com.pop.center.dto.PopInfoDto;
+import com.pop.center.dto.pop.PopInfoDto;
 import com.pop.center.enums.RedisKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

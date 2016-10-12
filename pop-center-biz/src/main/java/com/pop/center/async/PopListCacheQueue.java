@@ -1,6 +1,6 @@
 package com.pop.center.async;
 
-import com.pop.center.dto.PopDto;
+import com.pop.center.dto.pop.PopDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

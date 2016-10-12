@@ -1,11 +1,12 @@
-package com.pop.center.entity;
+package com.pop.center.dto.pop;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by xugang on 16/8/6.
  */
-public class PopEntity {
+public class PopDto implements Serializable{
     private long id;
     private int type;
     private double longitude;
@@ -15,11 +16,8 @@ public class PopEntity {
     private String userName;
     private int model;
     private int isShowy;
-    private Date updateTime;
-    private Date createTime;
     private String geoHash;
     private String introduction;
-    private int sex;
 
 
     public long getId() {
@@ -86,22 +84,6 @@ public class PopEntity {
         this.model = model;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public int getIsShowy() {
         return isShowy;
     }
@@ -126,11 +108,4 @@ public class PopEntity {
         this.introduction = introduction;
     }
 
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
 }

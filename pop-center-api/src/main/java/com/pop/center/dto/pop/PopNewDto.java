@@ -1,13 +1,11 @@
-package com.pop.center.dto;
+package com.pop.center.dto.pop;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * Created by xugang on 16/8/6.
+ * Created by xugang on 16/8/9.
  */
-public class PopDto implements Serializable{
-    private long id;
+public class PopNewDto implements Serializable{
     private int type;
     private double longitude;
     private double latitude;
@@ -16,18 +14,14 @@ public class PopDto implements Serializable{
     private String userName;
     private int model;
     private int isShowy;
-    private String geoHash;
+    private String imgUrl;
+    private String message;
+    private String userIntroduction;
+    private String userHeadUrl;
+    public int onlyOnce;
     private String introduction;
     private int sex;
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public int getType() {
         return type;
@@ -85,6 +79,38 @@ public class PopDto implements Serializable{
         this.model = model;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getUserIntroduction() {
+        return userIntroduction;
+    }
+
+    public void setUserIntroduction(String userIntroduction) {
+        this.userIntroduction = userIntroduction;
+    }
+
+    public String getUserHeadUrl() {
+        return userHeadUrl;
+    }
+
+    public void setUserHeadUrl(String userHeadUrl) {
+        this.userHeadUrl = userHeadUrl;
+    }
+
     public int getIsShowy() {
         return isShowy;
     }
@@ -93,12 +119,12 @@ public class PopDto implements Serializable{
         this.isShowy = isShowy;
     }
 
-    public String getGeoHash() {
-        return geoHash;
+    public int getOnlyOnce() {
+        return onlyOnce;
     }
 
-    public void setGeoHash(String geoHash) {
-        this.geoHash = geoHash;
+    public void setOnlyOnce(int onlyOnce) {
+        this.onlyOnce = onlyOnce;
     }
 
     public String getIntroduction() {

@@ -1,6 +1,6 @@
 package com.pop.center.entity;
 
-import com.pop.center.dto.PopDto;
+import com.pop.center.dto.pop.PopDto;
 import com.pop.center.util.DistanceUtil;
 
 import java.util.Comparator;

@@ -16,67 +16,126 @@
 
 
     <!--open platform  data source -->
-    <bean id="userDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+    <bean id="popDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
           destroy-method="close">
-        <property name="driverClassName" value="${uc.driver}"/>
-        <property name="url" value="${uc.url}"/>
-        <property name="username" value="${uc.username}"/>
-        <property name="password" value="${uc.password}"/>
+        <property name="driverClassName" value="${pop.driver}"/>
+        <property name="url" value="${pop.url}"/>
+        <property name="username" value="${pop.username}"/>
+        <property name="password" value="${pop.password}"/>
 
         <!-- Connection Pooling Info -->
-        <property name="maxWait" value="${uc.maxWait}"/>
-        <property name="initialSize" value="${uc.initialSize}"/>
-        <property name="maxActive" value="${uc.maxActive}"/>
-        <property name="minIdle" value="${uc.minIdle}"/>
-        <property name="defaultAutoCommit" value="${uc.defaultAutoCommit}"/>
+        <property name="maxWait" value="${pop.maxWait}"/>
+        <property name="initialSize" value="${pop.initialSize}"/>
+        <property name="maxActive" value="${pop.maxActive}"/>
+        <property name="minIdle" value="${pop.minIdle}"/>
+        <property name="defaultAutoCommit" value="${pop.defaultAutoCommit}"/>
         <property name="timeBetweenEvictionRunsMillis"
-                  value="${uc.timeBetweenEvictionRunsMillis}"/>
-        <property name="minEvictableIdleTimeMillis" value="${uc.minEvictableIdleTimeMillis}"/>
-        <property name="removeAbandoned" value="${uc.removeAbandoned}"/>
-        <property name="removeAbandonedTimeout" value="${uc.removeAbandonedTimeout}"/>
-        <property name="logAbandoned" value="${uc.logAbandoned}"/>
-        <property name="testWhileIdle" value="${uc.testWhileIdle}"/>
-        <property name="testOnBorrow" value="${uc.testOnBorrow}"/>
-        <property name="testOnReturn" value="${uc.testOnReturn}"/>
-        <property name="validationQuery" value="${uc.validationQuery}"/>
+                  value="${pop.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${pop.minEvictableIdleTimeMillis}"/>
+        <property name="removeAbandoned" value="${pop.removeAbandoned}"/>
+        <property name="removeAbandonedTimeout" value="${pop.removeAbandonedTimeout}"/>
+        <property name="logAbandoned" value="${pop.logAbandoned}"/>
+        <property name="testWhileIdle" value="${pop.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${pop.testOnBorrow}"/>
+        <property name="testOnReturn" value="${pop.testOnReturn}"/>
+        <property name="validationQuery" value="${pop.validationQuery}"/>
+    </bean>
+
+
+    <!--open platform  data source -->
+    <bean id="messageDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${message.driver}"/>
+        <property name="url" value="${message.url}"/>
+        <property name="username" value="${message.username}"/>
+        <property name="password" value="${message.password}"/>
+
+        <!-- Connection Pooling Info -->
+        <property name="maxWait" value="${message.maxWait}"/>
+        <property name="initialSize" value="${message.initialSize}"/>
+        <property name="maxActive" value="${message.maxActive}"/>
+        <property name="minIdle" value="${message.minIdle}"/>
+        <property name="defaultAutoCommit" value="${message.defaultAutoCommit}"/>
+        <property name="timeBetweenEvictionRunsMillis"
+                  value="${message.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${message.minEvictableIdleTimeMillis}"/>
+        <property name="removeAbandoned" value="${message.removeAbandoned}"/>
+        <property name="removeAbandonedTimeout" value="${message.removeAbandonedTimeout}"/>
+        <property name="logAbandoned" value="${message.logAbandoned}"/>
+        <property name="testWhileIdle" value="${message.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${message.testOnBorrow}"/>
+        <property name="testOnReturn" value="${message.testOnReturn}"/>
+        <property name="validationQuery" value="${message.validationQuery}"/>
     </bean>
 
 
 
 
-    <bean id="userSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="userDataSource" />
+    <bean id="popSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="popDataSource" />
         <property name="mapperLocations" value="classpath:config/sqlmap/pop/*.xml" />
         <property name="configLocation" value="classpath:mybatis/app-mybatis.xml" />
-        <property name="typeAliasesPackage" value="com.pop.uc.entity" />
+        <property name="typeAliasesPackage" value="com.pop.center.entity.pop" />
+    </bean>
+
+
+    <bean id="messageSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="messageDataSource" />
+        <property name="mapperLocations" value="classpath:config/sqlmap/message/*.xml" />
+        <property name="configLocation" value="classpath:mybatis/app-mybatis.xml" />
+        <property name="typeAliasesPackage" value="com.pop.center.entity.message" />
     </bean>
     <!-- mapper interface -->
   <!--  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory"/>
-        <property name="basePackage" value="com.pop.uc.dao"/>
+        <property name="basePackage" value="com.pop.pop.dao"/>
     </bean>-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.pop.center.dao" />
+        <property name="basePackage" value="com.pop.center.dao.pop" />
         <property name="annotationClass" value="org.springframework.stereotype.Repository" />
-        <property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory" />
+        <property name="sqlSessionFactoryBeanName" value="popSqlSessionFactory" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.pop.center.dao.message" />
+        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
+        <property name="sqlSessionFactoryBeanName" value="messageSqlSessionFactory" />
     </bean>
 
 
     <!-- transaction support-->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="userDataSource" />
+    <!--pop-->
+    <bean id="popTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="popDataSource" />
     </bean>
 
-    <tx:advice transaction-manager="transactionManager" id="txAdvice">
+    <tx:advice transaction-manager="popTransactionManager" id="popTxAdvice">
         <tx:attributes>
             <tx:method name="*" propagation="REQUIRED"  rollback-for="Throwable"/>
         </tx:attributes>
     </tx:advice>
+
+    <!--message-->
+    <bean id="messageTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="messageDataSource" />
+    </bean>
+
+    <tx:advice transaction-manager="messageTransactionManager" id="messageTxAdvice">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"  rollback-for="Throwable"/>
+        </tx:attributes>
+    </tx:advice>
+
     <aop:config>
-        <aop:pointcut expression="execution(* com.pop.center.serviceImpl.*.*(..))
+        <aop:pointcut expression="execution(* com.pop.center.serviceImpl.message.*.*(..))
             )"
-                      id="txMethods" />
-        <aop:advisor pointcut-ref="txMethods" advice-ref="txAdvice" />
+                      id="messageTxMethods" />
+        <aop:pointcut expression="execution(* com.pop.center.serviceImpl.pop.*.*(..))
+            )"
+                      id="popTxMethods" />
+
+        <aop:advisor pointcut-ref="popTxMethods" advice-ref="popTxAdvice" />
+        <aop:advisor pointcut-ref="messageTxMethods" advice-ref="messageTxAdvice" />
     </aop:config>
 
 

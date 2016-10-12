@@ -15,8 +15,9 @@
     <!-- 用dubbo协议暴露服务的端口 -->
     <dubbo:protocol name="dubbo" port="${dubbo.service.port}"  />
 
-    <dubbo:service interface="com.pop.center.service.PopService" ref="popService" />
-    <bean id="popService" class="com.pop.center.serviceImpl.PopServiceImpl" />
+    <dubbo:service interface="com.pop.center.service.pop.PopService" ref="popService" />
+    <bean id="popService" class="com.pop.center.serviceImpl.pop.PopServiceImpl" />
 
-
+    <dubbo:service interface="com.pop.center.service.message.NoteService" ref="noteService" />
+    <bean id="noteService" class="com.pop.center.serviceImpl.message.NoteServiceImpl" />
 </beans>

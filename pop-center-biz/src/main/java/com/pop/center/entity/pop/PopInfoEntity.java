@@ -1,4 +1,4 @@
-package com.pop.center.entity;
+package com.pop.center.entity.pop;
 
 import java.util.Date;
 
@@ -15,7 +15,8 @@ public class PopInfoEntity {
     private String userHeadUrl;
     private Date updateTime;
     private Date createTime;
-    public int onlyOnce;
+    private int onlyOnce;
+    private int sex;
 
     public long getPopId() {
         return popId;
@@ -95,5 +96,13 @@ public class PopInfoEntity {
 
     public void setOnlyOnce(int onlyOnce) {
         this.onlyOnce = onlyOnce;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }

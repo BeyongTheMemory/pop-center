@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.pop.center.dao.PopMessageDAO">
+<mapper namespace="com.pop.center.dao.pop.PopMessageDAO">
 
 	<sql id="Base_Column_List">
-	  id,pop_id,message,user_id,user_name,user_head_url,latitude,longitude,state,update_time,create_time
+	  id,pop_id,message,user_id,user_name,user_head_url,latitude,longitude,state,update_time,create_time,introduction,sex
 	</sql>
 
 
-	<insert id="save" parameterType="com.pop.center.entity.PopMessageEntity" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.pop.center.entity.pop.PopMessageEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO pop_message
 		(
-		pop_id,message,user_id,user_name,user_head_url,latitude,longitude
+		pop_id,message,user_id,user_name,user_head_url,latitude,longitude,introduction,sex
 		)
 		VALUES
 		(
-        #{popId},#{message},#{userId},#{userName},#{userHeadUrl},#{latitude},#{longitude}
+        #{popId},#{message},#{userId},#{userName},#{userHeadUrl},#{latitude},#{longitude},#{introduction},#{sex}
 		)
 	</insert>
 
-	<select id="getByPopId" parameterType="com.pop.center.entity.PopMessageEntity" resultType="java.util.Map">
+	<select id="getByPopId" parameterType="com.pop.center.entity.pop.PopMessageEntity" resultType="java.util.Map">
 		SELECT <include refid="Base_Column_List"/>
 		FROM pop_message
 		WHERE pop_id = #{popId} limit 1

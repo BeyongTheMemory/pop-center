@@ -1,22 +1,22 @@
-package com.pop.center.entity;
+package com.pop.center.dto.pop;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * Created by xugang on 16/8/9.
+ * pop留言
  */
-public class PopMessageEntity {
+public class PopMessageDto implements Serializable{
     private long id;
     private long popId;
     private String message;
-    private String userId;
+    private long userId;
     private String userName;
     private String userHeadUrl;
+    private String introduction;
+    private int sex;
     private double latitude;
     private double longitude;
-    private int state;
-    private Date updateTime;
-    private Date createTime;
 
     public long getId() {
         return id;
@@ -42,11 +42,11 @@ public class PopMessageEntity {
         this.message = message;
     }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -56,14 +56,6 @@ public class PopMessageEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
     }
 
     public String getUserHeadUrl() {
@@ -90,19 +82,19 @@ public class PopMessageEntity {
         this.longitude = longitude;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public int getSex() {
+        return sex;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }

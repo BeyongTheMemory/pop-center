@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.pop.center.dao.PopInfoDAO">
+<mapper namespace="com.pop.center.dao.pop.PopInfoDAO">
 
 	<sql id="Base_Column_List">
-		id,pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,update_time,create_time,only_once
+		id,pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,update_time,create_time,only_once,sex
 	</sql>
 
 
-	<insert id="save" parameterType="com.pop.center.entity.PopInfoEntity" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="com.pop.center.entity.pop.PopInfoEntity" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO pop_infore
 		(
-		pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,only_once
+		pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,only_once,sex
 		)
 		VALUES
 		(
-        #{popId},#{imgUrl},#{message},#{userName},#{userId},#{userIntroduction},#{userHeadUrl},#{onlyOnce}
+        #{popId},#{imgUrl},#{message},#{userName},#{userId},#{userIntroduction},#{userHeadUrl},#{onlyOnce},#{sex}
 		)
 	</insert>
 
-	<select id="getByPopId" parameterType="java.util.Map" resultType="com.pop.center.entity.PopInfoEntity">
+	<select id="getByPopId" parameterType="java.util.Map" resultType="com.pop.center.entity.pop.PopInfoEntity">
 		SELECT <include refid="Base_Column_List"/>
 		FROM pop_infore
 		WHERE pop_id = #{popId}

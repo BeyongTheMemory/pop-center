@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pop.center.dao.message.MessageNotesDAO">
+
+    <sql id="Base_Column_List">
+		id,send_id,receive_id,message,send_state,receive_state,send_name,send_sex,update_time,create_time
+	</sql>
+
+
+    <insert id="save" parameterType="com.pop.center.entity.message.NoteEntity">
+		INSERT INTO message_notes
+		(send_id,receive_id,message,send_name,send_sex)
+		VALUES
+		(#{sendId},#{receiveId},#{message},#{sendName},#{sendSex})
+
+	</insert>
+
+    <select id="getNoteBySendIdAndState" parameterType="java.util.Map"
+            resultType="com.pop.center.entity.message.NoteEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM message_notes
+        <![CDATA[
+         WHERE send_id = #{sendId} AND send_state < 10
+        ]]>
+        <if test="sendState > 0">
+            AND send_state = #{sendState}
+        </if>
+    </select>
+
+    <select id="getNoteByReceiveIdAndState" parameterType="java.util.Map"
+            resultType="com.pop.center.entity.message.NoteEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM message_notes
+        <![CDATA[
+         WHERE receive_id = #{receiveId} AND receive_state < 10
+        ]]>
+        <if test="sendState > 0">
+            AND receive_state = #{receiveState}
+        </if>
+    </select>
+    
+    <update id="updateSendState" parameterType="java.util.Map">
+        UPDATE message_notes SET send_state = #{sendState} where id = #{id}
+    </update>
+
+    <update id="updateReceiveState" parameterType="java.util.Map">
+        UPDATE message_notes SET receive_state = #{receiveState} where id = #{id}
+    </update>
+</mapper>

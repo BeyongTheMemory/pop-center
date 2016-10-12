@@ -1,9 +1,9 @@
-package com.pop.center.service;
+package com.pop.center.service.pop;
 
-import com.pop.center.dto.PopDto;
-import com.pop.center.dto.PopInfoDto;
-import com.pop.center.dto.PopMessageDto;
-import com.pop.center.dto.PopNewDto;
+import com.pop.center.dto.pop.PopDto;
+import com.pop.center.dto.pop.PopInfoDto;
+import com.pop.center.dto.pop.PopMessageDto;
+import com.pop.center.dto.pop.PopNewDto;
 import com.pop.mybatis.entity.Page;
 import com.pop.mybatis.entity.Pageable;
 

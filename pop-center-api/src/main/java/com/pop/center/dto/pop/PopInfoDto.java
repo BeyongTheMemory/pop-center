@@ -1,4 +1,4 @@
-package com.pop.center.dto;
+package com.pop.center.dto.pop;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +16,8 @@ public class PopInfoDto implements Serializable{
     private String userHeadUrl;
     private Date updateTime;
     private Date createTime;
+    private int sex;
+    private int onlyOnce;
 
     public long getPopId() {
         return popId;
@@ -87,5 +89,21 @@ public class PopInfoDto implements Serializable{
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public int getOnlyOnce() {
+        return onlyOnce;
+    }
+
+    public void setOnlyOnce(int onlyOnce) {
+        this.onlyOnce = onlyOnce;
     }
 }

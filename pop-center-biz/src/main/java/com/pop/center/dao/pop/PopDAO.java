@@ -1,6 +1,6 @@
-package com.pop.center.dao;
+package com.pop.center.dao.pop;
 
-import com.pop.center.entity.PopEntity;
+import com.pop.center.entity.pop.PopEntity;
 import com.pop.mybatis.entity.Page;
 import com.pop.mybatis.entity.Pageable;
 import org.apache.ibatis.annotations.Param;

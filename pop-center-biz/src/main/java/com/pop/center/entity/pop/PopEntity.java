@@ -1,11 +1,12 @@
-package com.pop.center.dto;
+package com.pop.center.entity.pop;
 
-import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Created by xugang on 16/8/9.
+ * Created by xugang on 16/8/6.
  */
-public class PopNewDto implements Serializable{
+public class PopEntity {
+    private long id;
     private int type;
     private double longitude;
     private double latitude;
@@ -14,14 +15,19 @@ public class PopNewDto implements Serializable{
     private String userName;
     private int model;
     private int isShowy;
-    private String imgUrl;
-    private String message;
-    private String userIntroduction;
-    private String userHeadUrl;
-    public int onlyOnce;
+    private Date updateTime;
+    private Date createTime;
+    private String geoHash;
     private String introduction;
-    private int sex;
 
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public int getType() {
         return type;
@@ -79,36 +85,20 @@ public class PopNewDto implements Serializable{
         this.model = model;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public String getMessage() {
-        return message;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getUserIntroduction() {
-        return userIntroduction;
-    }
-
-    public void setUserIntroduction(String userIntroduction) {
-        this.userIntroduction = userIntroduction;
-    }
-
-    public String getUserHeadUrl() {
-        return userHeadUrl;
-    }
-
-    public void setUserHeadUrl(String userHeadUrl) {
-        this.userHeadUrl = userHeadUrl;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public int getIsShowy() {
@@ -119,12 +109,12 @@ public class PopNewDto implements Serializable{
         this.isShowy = isShowy;
     }
 
-    public int getOnlyOnce() {
-        return onlyOnce;
+    public String getGeoHash() {
+        return geoHash;
     }
 
-    public void setOnlyOnce(int onlyOnce) {
-        this.onlyOnce = onlyOnce;
+    public void setGeoHash(String geoHash) {
+        this.geoHash = geoHash;
     }
 
     public String getIntroduction() {
@@ -135,11 +125,4 @@ public class PopNewDto implements Serializable{
         this.introduction = introduction;
     }
 
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
 }

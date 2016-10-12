@@ -1,10 +1,8 @@
-package com.pop.center.dao;
+package com.pop.center.dao.pop;
 
-import com.pop.center.entity.PopInfoEntity;
+import com.pop.center.entity.pop.PopInfoEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Created by xugang on 16/8/8.
