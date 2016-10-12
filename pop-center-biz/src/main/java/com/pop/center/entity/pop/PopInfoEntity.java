@@ -18,6 +18,8 @@ public class PopInfoEntity {
     private int onlyOnce;
     private int sex;
     private int lookNum;
+    private double longitude;
+    private double latitude;
 
     public long getPopId() {
         return popId;
@@ -113,5 +115,21 @@ public class PopInfoEntity {
 
     public void setLookNum(int lookNum) {
         this.lookNum = lookNum;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 }
