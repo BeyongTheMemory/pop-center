@@ -3,7 +3,7 @@
 <mapper namespace="com.pop.center.dao.pop.PopInfoDAO">
 
 	<sql id="Base_Column_List">
-		id,pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,update_time,create_time,only_once,sex,longitude,latitude
+		id,pop_id,img_url,message,user_name,user_id,user_introduction,user_head_url,update_time,create_time,only_once,sex,longitude,latitude,look_num
 	</sql>
 
 
@@ -24,6 +24,12 @@
 		WHERE pop_id = #{popId}
 	</select>
 
+
+	<update id="addLookNum" parameterType="java.util.Map">
+		UPDATE pop_infore
+		set look_num = look_num + 1
+		where id = #{id}
+	</update>
 
 
 </mapper>

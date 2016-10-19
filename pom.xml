@@ -7,7 +7,7 @@
     <groupId>com.pop</groupId>
     <artifactId>pop-center</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <modules>
         <module>pop-center-api</module>
         <module>pop-center-biz</module>

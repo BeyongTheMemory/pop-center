@@ -27,5 +27,4 @@ public interface PopDAO {
 
     PopEntity getById(@Param("id") long id);
 
-    void addLookNum(@Param("id") long id);
 }

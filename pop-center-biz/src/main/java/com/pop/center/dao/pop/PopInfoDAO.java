@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface PopInfoDAO {
     public void save(PopInfoEntity popInfoEntity);
     public PopInfoEntity getByPopId(@Param("popId")long popId);
+    void addLookNum(@Param("id") long id);
+
 }
